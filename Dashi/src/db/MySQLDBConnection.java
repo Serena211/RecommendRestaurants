@@ -31,6 +31,7 @@ public class MySQLDBConnection implements DBConnection {
 			// The newInstance() call is a work around for some broken Java
 			// implementations
 			Class.forName("com.mysql.jdbc.Driver").newInstance();
+			// Open a connection
 			conn = DriverManager.getConnection(url);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -38,6 +39,7 @@ public class MySQLDBConnection implements DBConnection {
 	}
 
 	@Override
+	//
 	public void close() {
 		if (conn != null) {
 			try {
@@ -52,6 +54,7 @@ public class MySQLDBConnection implements DBConnection {
 		// TODO Auto-generated method stub
 		String sql = "INSERT INTO history(business_id,user_id) VALUES(?,?)";
 		try {
+			//use SQL statements many times
 			PreparedStatement statement = conn.prepareStatement(sql);
 			for (String businessId : businessIds) {
 				statement.setString(1, businessId);
