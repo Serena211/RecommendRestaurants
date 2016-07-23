@@ -13,6 +13,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import db.DBConnection;
+import db.MongoDBConnection;
 import db.MySQLDBConnection;
 
 /**
@@ -22,6 +23,7 @@ import db.MySQLDBConnection;
 public class RecommendRestaurants extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static DBConnection connection = new MySQLDBConnection();
+//    private static DBConnection connection = new MongoDBConnection();
 
 	/**
 	 * @see HttpServlet#HttpServlet()
