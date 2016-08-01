@@ -16,6 +16,7 @@ import com.mongodb.client.MapReduceIterable;
 import com.mongodb.client.MongoDatabase;
 
 import db.DBUtil;
+
 // MongoDB MapReducer
 public class Prediction {
 	// potential good results are AWLVQ1NSU3LDS
@@ -35,6 +36,7 @@ public class Prediction {
 		List<String> previousItems = new ArrayList<>();
 		List<Double> previousRatings = new ArrayList<>();
 		FindIterable<Document> iterable = db.getCollection(COLLECTION_NAME).find(
+				//new Document( <field>, <value> ) ???
 				new Document(USER_COLUMN, USER_ID));
 
 		iterable.forEach(new Block<Document>() {
@@ -71,6 +73,7 @@ public class Prediction {
 		results.forEach(new Block<Document>() {
 			@Override
 			public void apply(final Document document) {
+				System.out.println(document);
 				String id = document.getString("_id");
 				Double value = document.getDouble("value");
 				if (!id.equals(USER_ID)) {
