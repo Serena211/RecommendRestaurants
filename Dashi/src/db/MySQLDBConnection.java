@@ -274,7 +274,7 @@ public class MySQLDBConnection implements DBConnection {
 			}
 
 			String sql = "SELECT user_id from users WHERE user_id = ? and password = ?";
-			PreparedStatement statement = conn.prepareStatement(sql);
+			PreparedStatement statement = conn.prepareStatement(sql); // avoid SQLInjection
 			statement.setString(1, userId);
 			statement.setString(2, password);
 			ResultSet rs = statement.executeQuery();

@@ -7,9 +7,10 @@ import java.util.Set;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;		// http protocal
+import javax.servlet.http.HttpServlet; // http protocal
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -26,7 +27,7 @@ import db.MySQLDBConnection;
 public class VisitHistory extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static DBConnection connection = new MySQLDBConnection();
-//    private static DBConnection connection = new MongoDBConnection();
+	// private static DBConnection connection = new MongoDBConnection();
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -38,6 +39,7 @@ public class VisitHistory extends HttpServlet {
 		// TODO Auto-generated constructor stub
 	}
 
+
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
 	 *      response)
@@ -45,6 +47,11 @@ public class VisitHistory extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		// allow access only if session exists
+		if (!SessionValid.isSessionValid(request)) {
+			response.setStatus(403);
+			return;
+		}
 		JSONArray array = new JSONArray();
 		try {
 			if (request.getParameterMap().containsKey("user_id")) {
@@ -69,6 +76,11 @@ public class VisitHistory extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		// allow access only if session exists
+		if (!SessionValid.isSessionValid(request)) {
+			response.setStatus(403);
+			return;
+		}
 		try {
 			JSONObject input = RpcParser.parseInput(request);
 			if (input.has("user_id") && input.has("visited")) {
@@ -96,6 +108,11 @@ public class VisitHistory extends HttpServlet {
 	protected void doDelete(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		// allow access only if session exists
+		if (!SessionValid.isSessionValid(request)) {
+			response.setStatus(403);
+			return;
+		}
 		try {
 			JSONObject input = RpcParser.parseInput(request);
 			if (input.has("user_id") && input.has("visited")) {
